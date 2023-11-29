@@ -1,4 +1,4 @@
-# Electrolux Water Heater
+# Electrolux Water Heater (Ballu SMART WiFi DRY+ dirty version)
 
 [![Version][version-shield]][version]
 [![License][license-shield]][license]
@@ -49,13 +49,8 @@ The communucation uart protocol is reversed on 99.9% and fully described at [rev
 At this moment the componet is build using climate platform and allows the following:
 * Control current temperature
 * Change target boil temperature
-* Change boil power to 700W
 * Change boil power to 1300W
 * Change boil power to 2000W
-* Change BST (Bacteria Stop technology) mode
-* Sync and control internal clock
-* Set and start internal timer
-* Enter to "No Frost/Atifreeze" mode
 
 ## Build ESPHome firmware
 
@@ -83,22 +78,22 @@ substitutions:
 # please do not change packeages order it is very important, just comment/uncomment
 packages:
   # required package, do not comment
-  ewh: github://dentra/esphome-ewh/ewh-pkg-ewh.yaml@$ewh_version
+  ewh: github://vm03/esphome-ewh/ewh-pkg-ewh.yaml@$ewh_version
 
   ## optional package, uncomment next line to enable additional diagnostic clock sensor
-  # clock: github://dentra/esphome-ewh/ewh-pkg-clock.yaml@$ewh_version
+  # clock: github://vm03/esphome-ewh/ewh-pkg-clock.yaml@$ewh_version
 
   ## optional package, uncomment next line to enable additional diagnostic timer sensor
-  # timer: github://dentra/esphome-ewh/ewh-pkg-timer.yaml@$ewh_version
+  # timer: github://vm03/esphome-ewh/ewh-pkg-timer.yaml@$ewh_version
 
   ## optional package, uncomment next line to enable standalone web ui
-  # web: github://dentra/esphome-ewh/ewh-pkg-web.yaml@$ewh_version
+  # web: github://vm03/esphome-ewh/ewh-pkg-web.yaml@$ewh_version
 
   ## optional package, uncomment next line to enable experimental cloud support
-  # cloud: github://dentra/esphome-ewh/ewh-pkg-cloud.yaml@$ewh_version
+  # cloud: github://vm03/esphome-ewh/ewh-pkg-cloud.yaml@$ewh_version
 
   # required package, do not comment
-  core: github://dentra/esphome-ewh/ewh-pkg-core.yaml@$ewh_version
+  core: github://vm03/esphome-ewh/ewh-pkg-core.yaml@$ewh_version
 ```
 
 ## Expiremental cloud support
