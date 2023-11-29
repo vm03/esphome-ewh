@@ -1,7 +1,7 @@
 # This file enbles additional timer sensor for your dongle.
 # Enable it via package include:
 # packages:
-#   timer: github://dentra/esphome-ewh/ewh-pkg-timer.yaml@$ewh_version
+#   timer: github://vm03/esphome-ewh/ewh-pkg-timer.yaml@$ewh_version
 # or if you like from local filesystem:
 #   timer: !include ewh-pkg-timer.yaml
 
