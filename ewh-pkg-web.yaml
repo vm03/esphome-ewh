@@ -54,7 +54,7 @@ select:
     id: wh_mode
     internal: true
     name: $name Mode
-    options: ["700 W", "1300 W", "2000 W", "No Frost", "Timer"]
+    options: ["1300 W", "2000 W"]
     lambda: return *id(whc).custom_preset;
     set_action:
       lambda: |-
@@ -133,10 +133,6 @@ ewh:
           id(wh_current_temp).publish_state(state.current_temperature);
           id(wh_target_temp).publish_state(state.target_temperature);
           switch(state.state) {
-            case ewh::ewh_status_t::STATE_700W:
-              id(wh_state).publish_state(true);
-              id(wh_mode).publish_state("700 W");
-              break;
             case ewh::ewh_status_t::STATE_1300W:
               id(wh_state).publish_state(true);
               id(wh_mode).publish_state("1300 W");
@@ -144,14 +140,6 @@ ewh:
             case ewh::ewh_status_t::STATE_2000W:
               id(wh_state).publish_state(true);
               id(wh_mode).publish_state("2000 W");
-              break;
-            case ewh::ewh_status_t::STATE_TIMER:
-              id(wh_state).publish_state(true);
-              id(wh_mode).publish_state("Timer");
-              break;
-            case ewh::ewh_status_t::STATE_NO_FROST:
-              id(wh_state).publish_state(true);
-              id(wh_mode).publish_state("No Frost");
               break;
             default:
               id(wh_state).publish_state(false);

@@ -7,11 +7,8 @@ namespace ewh {
 
 static const char *const TAG = "ewh.climate";
 
-static const std::string PRESET_MODE1 = "700 W";
-static const std::string PRESET_MODE2 = "1300 W";
-static const std::string PRESET_MODE3 = "2000 W";
-static const std::string PRESET_NO_FROST = "No Frost";
-static const std::string PRESET_TIMER = "Timer";
+static const std::string PRESET_MODE1 = "1300 W";
+static const std::string PRESET_MODE2 = "2000 W";
 
 void EWHClimate::dump_config() {
   LOG_CLIMATE("", "EWH Climate", this);
@@ -32,7 +29,7 @@ ClimateTraits EWHClimate::traits() {
   });
 
   traits.set_supported_custom_presets({
-      PRESET_MODE1, PRESET_MODE2, PRESET_MODE3, PRESET_NO_FROST,
+      PRESET_MODE1, PRESET_MODE2,
       // PRESET_TIMER,
   });
 
@@ -46,22 +43,13 @@ ewh_mode_t::Mode EWHClimate::to_wh_mode_(ClimateMode mode, const std::string &pr
     return ewh_mode_t::MODE_OFF;
   }
   if (preset == PRESET_MODE1) {
-    return ewh_mode_t::MODE_700W;
-  }
-  if (preset == PRESET_MODE2) {
     return ewh_mode_t::MODE_1300W;
   }
-  if (preset == PRESET_MODE3) {
+  if (preset == PRESET_MODE2) {
     return ewh_mode_t::MODE_2000W;
   }
-  if (preset == PRESET_NO_FROST) {
-    return ewh_mode_t::MODE_NO_FROST;
-  }
-  if (preset == PRESET_TIMER) {
-    return ewh_mode_t::MODE_700W;
-  }
   if (mode == ClimateMode::CLIMATE_MODE_HEAT) {
-    return ewh_mode_t::MODE_700W;
+    return ewh_mode_t::MODE_1300W;
   }
   return ewh_mode_t::MODE_OFF;
 }
@@ -100,16 +88,10 @@ void EWHClimate::read(const ewh_status_t &status) {
     this->mode = climate::CLIMATE_MODE_HEAT;
     // if detect real heating then add ClimateAction::CLIMATE_ACTION_IDLE
     this->action = climate::CLIMATE_ACTION_HEATING;
-    if (status.state == ewh_state_t::STATE_700W) {
+    if (status.state == ewh_state_t::STATE_1300W) {
       this->custom_preset = PRESET_MODE1;
-    } else if (status.state == ewh_state_t::STATE_1300W) {
-      this->custom_preset = PRESET_MODE2;
     } else if (status.state == ewh_state_t::STATE_2000W) {
-      this->custom_preset = PRESET_MODE3;
-    } else if (status.state == ewh_state_t::STATE_NO_FROST) {
-      this->custom_preset = PRESET_NO_FROST;
-    } else if (status.state == ewh_state_t::STATE_TIMER) {
-      this->custom_preset = PRESET_TIMER;
+      this->custom_preset = PRESET_MODE2;
     }
   }
 

@@ -93,7 +93,7 @@ enum PacketType : uint8_t {
 
 struct ewh_mode_t {
   enum : uint8_t { SET_OPERATION = 0 };
-  enum Mode : uint8_t { MODE_OFF = 0, MODE_700W = 1, MODE_1300W = 2, MODE_2000W = 3, MODE_NO_FROST = 4 } mode;
+  enum Mode : uint8_t { MODE_OFF = 0, MODE_1300W = 1, MODE_2000W = 2 } mode;
   uint8_t temperature;
 };
 
@@ -126,11 +126,8 @@ struct ewh_error_t {
 struct ewh_status_t {
   enum State : uint8_t {
     STATE_OFF = 0,
-    STATE_700W = 1,
-    STATE_1300W = 2,
-    STATE_2000W = 3,
-    STATE_TIMER = 4,  // aka hot water preparation mode
-    STATE_NO_FROST = 5
+    STATE_1300W = 1,
+    STATE_2000W = 2,
   } state;
   // temperature in celcius
   uint8_t current_temperature;
@@ -140,7 +137,6 @@ struct ewh_status_t {
   uint8_t timer_hours;
   uint8_t timer_minutes;
   uint8_t unknown;  // always 0
-  ewh_bst_t bst;
 };
 
 // Response PACKET_REQ_STATE. Same as ewh_status_t.

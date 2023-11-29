@@ -49,17 +49,12 @@ OPER_02_TIMER = 0x02
 OPER_03_BST = 0x03
 
 MODE_00_OFF = 0
-MODE_01_700W = 1
-MODE_02_1300W = 2
-MODE_03_2000W = 3
-MODE_04_NO_FROST = 4
+MODE_02_1300W = 1
+MODE_03_2000W = 2
 
 STATE_00_OFF = 0
-STATE_01_700W = 1
-STATE_02_1300W = 2
-STATE_03_2000W = 3
-STATE_04_TIMER = 4
-STATE_05_NO_FROST = 5
+STATE_02_1300W = 1
+STATE_03_2000W = 2
 
 FS_ST = "st"  # state
 FS_CT = "ct"  # current_temperature
@@ -180,15 +175,10 @@ def process_aa(buf: bytes):
             mode = DEV_STATE[FS_ST]
             if mode == STATE_00_OFF:
                 mode = "off"
-            elif mode == MODE_01_700W:
-                mode = "700W"
-            elif mode == MODE_02_1300W:
+            elif mode == MODE_01_1300W:
                 mode = "1300W"
-            elif mode == MODE_03_2000W:
+            elif mode == MODE_02_2000W:
                 mode = "2000W"
-            elif mode == MODE_04_NO_FROST:
-                mode = "no frost"
-                DEV_STATE[FS_ST] = STATE_05_NO_FROST
             else:
                 mode = f"unknown {mode:02X}"
             print(
