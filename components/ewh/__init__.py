@@ -14,7 +14,6 @@ from esphome.const import (
 CODEOWNERS = ["@dentra"]
 AUTO_LOAD = ["switch"]
 
-CONF_BST = "bst"
 CONF_EWH_ID = "ewh_id"
 
 # CONF_IDLE_TEMP_DROP = "idle_temp_drop"
@@ -28,7 +27,6 @@ ewh_ns = cg.esphome_ns.namespace("ewh")
 EWH = ewh_ns.class_("ElectroluxWaterHeater", cg.Component, uart.UARTDevice)
 EWHListener = ewh_ns.class_("EWHListener")
 EWHComponent = ewh_ns.class_("EWHComponent", cg.Component, EWHListener)
-BSTSwitch = EWHComponent.class_("BSTSwitch", switch.Switch)
 
 EWHStatusRef = ewh_ns.struct("ewh_status_t").operator("const").operator("ref")
 EWHUpdateTrigger = ewh_ns.class_(
@@ -62,9 +60,6 @@ EWH_COMPONENT_SCHEMA = (
     cv.Schema(
         {
             cv.Optional(CONF_ICON, default=ICON_WATER_BOILER): cv.icon,
-            cv.Optional(CONF_BST): switch.switch_schema(
-                BSTSwitch, entity_category=ENTITY_CATEGORY_CONFIG, block_inverted=True
-            ),
             # cv.Optional(CONF_IDLE_TEMP_DROP, default=5): cv.uint8_t,
         }
     )
@@ -77,12 +72,6 @@ async def new_ewh(config):
     ewh_ = await cg.get_variable(config[CONF_EWH_ID])
     var = cg.new_Pvariable(config[CONF_ID], ewh_)
     await cg.register_component(var, config)
-
-    if CONF_BST in config:
-        conf = config[CONF_BST]
-        sens = cg.new_Pvariable(conf[CONF_ID], ewh_)
-        await switch.register_switch(sens, conf)
-        cg.add(var.set_bst(sens))
 
     # cg.add(var.set_idle_temp_drop(config[CONF_IDLE_TEMP_DROP]))
 

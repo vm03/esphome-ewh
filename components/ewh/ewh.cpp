@@ -93,12 +93,6 @@ void ElectroluxWaterHeater::set_timer(uint8_t hours, uint8_t minutes, uint8_t te
   });
 }
 
-void ElectroluxWaterHeater::set_bst(bool value) {
-  this->set_bst(ewh_bst_t{
-      .state = value ? ewh_bst_t::STATE_ON : ewh_bst_t::STATE_OFF,
-  });
-}
-
 void ElectroluxWaterHeater::send_control_state_(uint8_t operation, const void *data, int size) {
   EWH_LOGV(TAG, "Change control state %02X: %s", operation,
            format_hex_pretty(static_cast<const uint8_t *>(data), size).c_str());
@@ -159,11 +153,6 @@ void ElectroluxWaterHeater::set_clock(const ewh_clock_t &clock) {
   }
   ESP_LOGD(TAG, "Set clock to %02u:%02u", clock.hours, clock.minutes);
   this->send_control_state_(ewh_clock_t::SET_OPERATION, &clock, sizeof(clock));
-}
-
-void ElectroluxWaterHeater::set_bst(const ewh_bst_t &bst) {
-  ESP_LOGD(TAG, "Set BST to %s", ONOFF(bst.state == ewh_bst_t::STATE_ON));
-  this->send_control_state_(ewh_bst_t::SET_OPERATION, &bst, sizeof(bst));
 }
 
 // send packet. data must be without prefix (AA), size and crc

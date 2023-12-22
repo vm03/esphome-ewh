@@ -38,5 +38,3 @@ climate:
   - platform: ewh
     id: whc
     name: "$name"
-    bst:
-      name: $name BST # Bacteria Stop Technology

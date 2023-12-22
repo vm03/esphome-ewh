@@ -111,12 +111,6 @@ struct ewh_timer_t {
   uint8_t temperature;
 };
 
-// Bacteria Stop Technology.
-struct ewh_bst_t {
-  enum : uint8_t { SET_OPERATION = 3 };
-  enum State : uint8_t { STATE_OFF = 0, STATE_ON = 1 } state;
-};
-
 // Response for PACKET_ERROR.
 struct ewh_error_t {
   enum Code : uint8_t { CODE_BAD_CRC = 1, CODE_BAD_COMMAND = 2 } code;

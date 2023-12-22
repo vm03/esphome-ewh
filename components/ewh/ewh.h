@@ -47,12 +47,10 @@ class ElectroluxWaterHeater : public Component, private EWHListener {
   void set_mode(ewh_mode_t::Mode mode, uint8_t target_temperature);
   void set_clock(uint8_t hours, uint8_t minutes);
   void set_timer(uint8_t hours, uint8_t minutes, uint8_t temperature, ewh_mode_t::Mode mode = ewh_mode_t::MODE_1300W);
-  void set_bst(bool value);
 
   void set_clock(const ewh_clock_t &clock);
   void set_timer(const ewh_timer_t &timer);
   void set_mode(const ewh_mode_t &mode);
-  void set_bst(const ewh_bst_t &bst);
 
   // write raw data to uart and flush
   void write_raw(const uint8_t *data, const uint32_t size) {

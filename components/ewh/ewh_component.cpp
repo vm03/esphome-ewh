@@ -9,7 +9,6 @@ namespace ewh {
 static const char *const TAG = "ewh.component";
 
 void EWHComponent::dump_config() {
-  LOG_SWITCH("  ", "BST Swtich", this->bst_);
   auto dev_type = format_hex_pretty(reinterpret_cast<const uint8_t *>(&this->dev_type_), sizeof(this->dev_type_));
   ESP_LOGCONFIG(TAG, "  Device Type: %s", dev_type.c_str());
 }
